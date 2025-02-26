@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         REGISTRY = "k8s-vga-worker1:5000"
-        IMAGE_NAME = "team7-account_kkh"
+        IMAGE_NAME = "team7-account-kkh"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team7"
         JAVA_HOME = "/usr/local/java21"
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     // Kubenetes에서 특정 Deployment의 컨테이너 이미지를 업데이트 (아래 이름은 중복되지 않게 주의하여 지정, deployment, selector 이름으로)
-                    sh "kubectl set image deployment/account_kkh account_kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+                    sh "kubectl set image deployment/account-kkh account-kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
                 }
             }
         }
