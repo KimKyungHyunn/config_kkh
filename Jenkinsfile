@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         REGISTRY = "k8s-vga-worker1:5000"
-        IMAGE_NAME = "team7-card-kkh"
+        IMAGE_NAME = "team7-config-kkh"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team7"
         JAVA_HOME = "/usr/local/java21"
@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Git 저장소에서 소스 코드 체크아웃 (branch 지정 : 본인 repository의 branch 이름으로 설정)
-                git branch: 'main', url: 'https://github.com/KimKyungHyunn/card_kkh.git'
+                git branch: 'main', url: 'https://github.com/KimKyungHyunn/config_kkh.git'
             }
         }
         stage('Build with Gradle') {
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     // Kubenetes에서 특정 Deployment의 컨테이너 이미지를 업데이트 (아래 이름은 중복되지 않게 주의하여 지정, deployment, selector 이름으로)
-                    sh "kubectl set image deployment/card-kkh card-kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+                    sh "kubectl set image deployment/config-kkh config-kkh=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
                 }
             }
         }
