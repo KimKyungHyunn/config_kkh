@@ -1,0 +1,61 @@
+# build:
+#   version: "3.0"
+
+# account:
+#   message: "Welcome to EazyBank accounts related local APIs "
+#   contactDetails:
+#     name: "John Doe - Developer"
+#     email: "john@eazybank.com"
+#   onCallSupport:
+#     - (555) 555-1234
+#     - (555) 523-1345
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  cloud:
+    openfeign:
+      circuitbreaker:
+        # enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 30  # 기본값 30 → 10초마다 갱신 요청
+    lease-expiration-duration-in-seconds: 90  # 기본값 90 → 30초 이상 갱신 없으면 제거
+    prefer-ip-address: true # Pod의 호스트명을 Eureka에 등록하도록 설정
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30  # 기본값 30 → 5초마다 Eureka 서버에서 인스턴스 정보 가져오기
+    serviceUrl:
+      # defaultZone: http://192.168.100.221:30743/eureka/
+      defaultZone: http://localhost:9201/eureka/
+info:
+  app:
+    name: "account"
+    description: "Eazy Bank Accounts Application"
+    version: "1.0.0"
+
